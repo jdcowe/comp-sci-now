@@ -1,5 +1,5 @@
 const webToken = require("jsonwebtoken");
-const config = require("config");
+//const config = require("config");
 
 module.exports = function(request, response, next) {
   // Get token from header
@@ -15,7 +15,10 @@ module.exports = function(request, response, next) {
   // Verify Token
 
   try {
-    const decoded = webToken.verify(token, config.get("webTokenKey"));
+    const decoded = webToken.verify(
+      token,
+      /*config.get("webTokenKey")*/ process.env.WEB_TOKEN_KEY
+    );
 
     request.user = decoded.user;
     next();
