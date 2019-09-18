@@ -73,7 +73,7 @@ export default class ShowNotes extends Component {
                   <Header a="h1">{`Ep ${item.episodenumber}. - ${item.title}`}</Header>
                   <AudioCard
                     title={`Ep ${item.episodenumber}. - ${item.title}`}
-                    source="https://dts.podtrac.com/redirect.mp3/seekjustice.fm/media/001.mp3"
+                    source={item.src}
                     skipBackSeconds={10}
                     skipForwardSeconds={30}
                   />
