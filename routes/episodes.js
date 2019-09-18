@@ -39,20 +39,20 @@ router.post(
     }
 
     try {
-      const user = await User.findById(req.user.id).select("-password");
+      const user = await User.findById(request.user.id).select("-password");
       let cover = "";
 
-      if (req.body.cover) {
-        cover = req.body.cover;
+      if (request.body.cover) {
+        cover = request.body.cover;
       }
 
       if (user.role === "admin") {
         const newEpisode = new Episode({
-          episodenumber: req.body.episodenumber,
-          title: req.body.title,
-          src: req.body.src,
-          content: req.body.content,
-          shortcontent: req.body.shortcontent,
+          episodenumber: request.body.episodenumber,
+          title: request.body.title,
+          src: request.body.src,
+          content: request.body.content,
+          shortcontent: request.body.shortcontent,
           cover: cover
         });
 
@@ -69,12 +69,28 @@ router.post(
 );
 
 // @Route   GET routes/episodes
-// @Desc    Get all episodes
+// @Desc    Get all episodes + content
 // @Access  Public
 
 router.get("/", async (request, response) => {
   try {
-    const episodes = await Episode.find().sort({ episodenumber: 1 });
+    const episodes = await Episode.find().sort({ episodenumber: -1 });
+    response.json(episodes);
+  } catch (error) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// @Route   GET routes/episodes
+// @Desc    Get all episodes without text content
+// @Access  Public
+
+router.get("/player", async (request, response) => {
+  try {
+    const episodes = await Episode.find()
+      .select("-content")
+      .sort({ episodenumber: 1 });
     response.json(episodes);
   } catch (error) {
     console.error(err.message);

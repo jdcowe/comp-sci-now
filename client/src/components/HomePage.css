@@ -1,0 +1,26 @@
+.typewriter {
+  text-align: center;
+  overflow: hidden;
+  border-right: 3px solid white;
+  color: white;
+  top: 30%;
+  font-size: 40px;
+  white-space: nowrap;
+  animation: typing 1s steps(20, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 20%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+}
